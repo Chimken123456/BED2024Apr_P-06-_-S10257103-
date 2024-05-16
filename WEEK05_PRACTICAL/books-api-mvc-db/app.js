@@ -7,10 +7,12 @@ const validateBook = require("./middlewares/validateBook");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use environment variable or default port
+const staticMiddleware = express.static("public"); // Path to the public folder
 
 // Include body-parser middleware to handle JSON data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // For form data handling
+app.use(staticMiddleware); // Mount the static middleware
 
 app.get("/books",booksController.getAllBooks)
 app.get("/books/:id", booksController.getBookById)
