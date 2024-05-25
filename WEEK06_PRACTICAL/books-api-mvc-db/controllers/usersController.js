@@ -75,6 +75,7 @@ const deleteUser = async (req,res) =>
         const userId = parseInt(req.params.id);
         try
         {
+            // await User.deleteUserFromUserBooks(userId);
             const success = await User.deleteUser(userId);
             if(!success)
                 {

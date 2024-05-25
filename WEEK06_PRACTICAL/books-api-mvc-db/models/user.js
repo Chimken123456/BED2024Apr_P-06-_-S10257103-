@@ -77,26 +77,34 @@ class User
 
     }
 
+    //Deleting the user from userbooks
+    static async deleteUserFromUserBooks(id)
+    {
+        const connection = await sql.connect(dbConfig)
+        const sqlQeury = `DELETE FROM UserBooks WHERE user_id = @id`
+        const request = connection.request();
+        request.input("id",id);
+        await request.query(sqlQeury);
+        connection.close();
+    }
+
     //Deleting the user
     static async deleteUser(id)
     {
 
-        // const connection0 = await sql.connect(dbConfig)
-        // const sqlQeury0 = `DELETE FROM UserBooks WHERE id = @id`
-        // const request0 = connection0.request();
-        // request0.input("id",id);
-        // await request0.query(sqlQeury0);
-        // connection0.close();
+    
 
 
         const connection = await sql.connect(dbConfig);
         // const sqlQeury0 = `DELETE FROM UserBooks WHERE id = @id`
         
         const sqlQeury = `DELETE FROM Users WHERE id = @id`;
+        const sqlQeury0 = `DELETE FROM UserBooks WHERE user_id = @id`
         const request = connection.request();
   
         request.input("id",id);
 
+        await request.query(sqlQeury0);
         const result = await request.query(sqlQeury);
 
         connection.close()
